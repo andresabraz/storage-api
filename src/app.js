@@ -3,10 +3,16 @@ require('dotenv').config({
 });
 
 const express = require('express');
+const helmet = require('helmet');
+const morgan = require('morgan');
 
 class AppController {
   constructor() {
     this.express = express();
+    this.express.use(helmet());
+    this.express.use(
+      morgan(process.env.NODE_ENV === 'production' ? 'tiny' : 'dev')
+    );
 
     this.middlewares();
     this.routes();
@@ -14,6 +20,7 @@ class AppController {
 
   middlewares() {
     this.express.use(express.json());
+    this.express.use(express.urlencoded({ extended: false }));
   }
 
   routes() {

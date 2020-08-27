@@ -15,7 +15,7 @@ describe('Authentication', () => {
       password: '123',
     });
 
-    const response = await request(app).post('/sessions').send({
+    const response = await request(app).post('/session').send({
       email: user.email,
       password: '123',
     });
@@ -28,7 +28,7 @@ describe('Authentication', () => {
       password: '123456',
     });
 
-    const response = await request(app).post('/sessions').send({
+    const response = await request(app).post('/session').send({
       email: user.email,
       password: '123',
     });
@@ -41,7 +41,7 @@ describe('Authentication', () => {
       password: '123456',
     });
 
-    const response = await request(app).post('/sessions').send({
+    const response = await request(app).post('/session').send({
       email: user.email,
       password: '123456',
     });

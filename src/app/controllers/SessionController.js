@@ -20,6 +20,8 @@ class SessionController {
         .json({ message: 'Invalid password' });
     }
 
+    user.password_hash = undefined;
+
     return res.json({
       user,
       token: user.generateToken(),
