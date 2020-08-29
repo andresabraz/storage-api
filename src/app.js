@@ -20,6 +20,7 @@ class AppController {
 
   middlewares() {
     this.express.use(express.json());
+    //this.express.use(express.json({ limit: '4mb' }));
     this.express.use(express.urlencoded({ extended: false }));
   }
 

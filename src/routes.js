@@ -7,17 +7,17 @@ const AuthController = require('./app/controllers/AuthController');
 const SessionController = require('./app/controllers/SessionController');
 const StorageController = require('./app/controllers/StorageController');
 
-routes.post(
-  '/sendfile',
-  multer(multerConfig).single('file'),
-  StorageController.store
-);
-
 routes.post('/register', AuthController.register);
 
 routes.post('/session', SessionController.store);
 
 routes.use(authMiddleware);
+
+routes.post(
+  '/sendfile',
+  multer(multerConfig).single('file'),
+  StorageController.store
+);
 
 routes.get('/dashboard', (req, res) => {
   return res

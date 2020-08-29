@@ -5,13 +5,13 @@ const { Storage } = require('../models');
 class StorageController {
   async store(req, res) {
     try {
-      const { originalname: name, size, filename: key } = req.file;
+      const { originalname: name, size, key, location: url = '' } = req.file;
 
       const storage = await Storage.create({
         name,
         size,
         key,
-        url: '',
+        url,
       });
 
       res.send({ storage });
