@@ -5,6 +5,7 @@ require('dotenv').config({
 const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const path = require('path');
 
 class AppController {
   constructor() {
@@ -13,6 +14,10 @@ class AppController {
     this.express.use(
       morgan(process.env.NODE_ENV === 'production' ? 'tiny' : 'dev')
     );
+    this.express.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+    );
 
     this.middlewares();
     this.routes();
@@ -20,7 +25,6 @@ class AppController {
 
   middlewares() {
     this.express.use(express.json());
-    //this.express.use(express.json({ limit: '4mb' }));
     this.express.use(express.urlencoded({ extended: false }));
   }
 

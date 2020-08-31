@@ -3,17 +3,9 @@ const multerS3 = require('multer-s3');
 const aws = require('aws-sdk');
 const path = require('path');
 const crypto = require('crypto');
+const minioClient = require('../config/minio');
 
 const { hash } = require('bcryptjs');
-
-const minioClient = new aws.S3({
-  endpoint: process.env.MINIO_ENDPOINT,
-  s3ForcePathStyle: true,
-  accessKeyId: process.env.MINIO_ACCESS_KEY,
-  secretAccessKey: process.env.MINIO_SECRET_KEY,
-  sslEnabled: false,
-  region: process.env.MINIO_DEFAULT_REGION,
-});
 
 const StorageTypes = {
   local: multer.diskStorage({
@@ -66,7 +58,7 @@ const StorageTypes = {
 
 module.exports = {
   dest: path.resolve(__dirname, '..', '..', 'tmp', 'uploads'),
-  storage: StorageTypes['minio'],
+  storage: StorageTypes[process.env.STORAGE_TYPE],
   limits: {
     fileSize: 2 * 1024 * 1024,
   },
