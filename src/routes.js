@@ -14,15 +14,13 @@ routes.post('/session', SessionController.store);
 routes.use(authMiddleware);
 
 routes.post(
-  '/sendfile',
+  '/uploadfile',
   multer(multerConfig).single('file'),
   StorageController.store
 );
 
-routes.get('/dashboard', (req, res) => {
-  return res
-    .status(200)
-    .send({ loggedUserId: req.userId, message: 'Welcome to dashboard' });
-});
+routes.get('/files', StorageController.index);
+
+routes.delete('/files/:id', StorageController.destroy);
 
 module.exports = routes;
